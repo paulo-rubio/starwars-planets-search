@@ -1,22 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './App.css';
+import Planet from './Componets/Planets';
 
 function App() {
-  const [busca, setBusca] = useState('');
-  const endPoint = 'https://swapi-trybe.herokuapp.com/api/planets/';
-
-  useEffect(() => {
-    const getPlanetsList = async () => {
-      const { results } = await fetch(endPoint).then((resposta) => resposta.json());
-      console.log(results);
-    };
-    getPlanetsList();
-  }, []);
-
   return (
-    <main>
-      <h1>Lista De PLANETAS</h1>
-    </main>
+    <div>
+      <main>
+        <h1>Lista De PLANETAS</h1>
+      </main>
+
+      <Planet />
+    </div>
   );
 }
 
