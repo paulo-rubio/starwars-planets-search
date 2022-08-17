@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import './App.css';
+import React, { useEffect } from 'react';
 
-function App() {
+function Planet() {
   const [busca, setBusca] = useState('');
   const endPoint = 'https://swapi-trybe.herokuapp.com/api/planets/';
 
@@ -14,10 +13,7 @@ function App() {
   }, []);
 
   return (
-    <main>
-      <h1>Lista De PLANETAS</h1>
-    </main>
+    <h1>{getPlanetsList.filter(!results)}</h1>
   );
 }
-
-export default App;
+export default Planet;
