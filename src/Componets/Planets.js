@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
+import Context from '../context/Context';
+import FilterNumber from './FilterNumber';
 
 function Planet() {
-  const [planets, setPlanets] = useState([]);
-  const [filterByName, setfilterByName] = useState({});
-  const endPoint = 'https://swapi-trybe.herokuapp.com/api/planets/';
-
-  useEffect(() => {
-    const getPlanetsList = async () => {
-      const { results } = await fetch(endPoint).then((resposta) => resposta.json());
-      setPlanets(results);
-    };
-    getPlanetsList();
-  }, []);
+  const { setfilterByName } = useContext(Context);
+  const {
+    filterByNumericValues,
+    setfilterByNumericValues,
+  } = useContext(Context);
+  const [filterByNumeric, setfilterByNumeric] = useState({
+    colum: 'population',
+    comparison: 'maior que',
+    value: 0,
+  });
 
   const cabeçalho = [
     'name', 'rotation_period', 'orbital_period',
@@ -20,29 +21,47 @@ function Planet() {
     'films', 'created', 'edited', 'url',
   ];
 
-  const filterNamePlanets = () => planets.filter(({ name }) => name.toLowerCase()
-    .includes(filterByName));
-
+  const { colum, comparison, value } = filterByNumeric;
   return (
     <div>
-      <select data-testid="column-filter">
+      <select
+        data-testid="column-filter"
+        name="colum"
+        value={ colum }
+        onChange={ (e) => setfilterByNumeric({ ...filterByNumeric,
+          collum: e.target.value }) }
+      >
         <option> population</option>
         <option> orbital_period</option>
         <option> diameter</option>
         <option> rotation_period</option>
         <option> surface_water</option>
       </select>
-      <select data-testid="comparison-filter">
+      <select
+        data-testid="comparison-filter"
+        name="comparison"
+        value={ comparison }
+        onChange={ (e) => setfilterByNumeric({ ...filterByNumeric,
+          comparison: e.target.value }) }
+      >
         <option>maior que</option>
         <option>menor que</option>
         <option>igual a</option>
       </select>
-      <input data-testid="value-filter" />
+      <input
+        data-testid="value-filter"
+        name="value"
+        value={ value }
+        onChange={ (e) => setfilterByNumeric({ ...filterByNumeric,
+          value: e.target.value }) }
+      />
       <button
         data-testid="button-filter"
         type="button"
+        onClick={ () => setfilterByNumericValues([
+          ...filterByNumericValues, filterByNumeric]) }
       >
-        filtre
+        Fil
       </button>
       <br />
       <input
@@ -55,24 +74,7 @@ function Planet() {
             {cabeçalho.map((clacificação, i) => (<th key={ i }>{clacificação}</th>))}
           </tr>
         </thead>
-        {filterNamePlanets().map((results) => (
-          <tbody key={ results.name }>
-            <tr>
-              <td>{results.name}</td>
-              <td>{results.rotation_period}</td>
-              <td>{results.orbital_period}</td>
-              <td>{results.diameter}</td>
-              <td>{results.climate}</td>
-              <td>{results.gravity}</td>
-              <td>{results.terrain}</td>
-              <td>{results.surface_watter}</td>
-              <td>{results.population}</td>
-              <td>{results.films}</td>
-              <td>{results.created}</td>
-              <td>{results.edited}</td>
-              <td>{results.url}</td>
-            </tr>
-          </tbody>))}
+        <FilterNumber />
       </table>
     </div>
   );
