@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Context from '../context/Context';
 import FilterNumber from './FilterNumber';
 
@@ -13,6 +13,21 @@ function Planet() {
     comparison: 'maior que',
     value: 0,
   });
+  const Columnfilter = [
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ];
+
+  const collumFilterForDiferenc = Columnfilter.filter(
+    (column) => !filterByNumericValues.some((e) => column === e.column),
+  );
+
+  useEffect(() => {
+    setfilterByNumeric((p) => ({ ...p, column: collumFilterForDiferenc[0] }));
+  }, [filterByNumericValues]);
 
   const cabeçalho = [
     'name', 'rotation_period', 'orbital_period',
@@ -31,11 +46,11 @@ function Planet() {
         onChange={ (e) => setfilterByNumeric({ ...filterByNumeric,
           column: e.target.value }) }
       >
-        <option>population</option>
-        <option>orbital_period</option>
-        <option>diameter</option>
-        <option>rotation_period</option>
-        <option>surface_water</option>
+        {collumFilterForDiferenc.map((collumn) => (
+          <option key={ collumn } value={ collumn }>
+            {collumn}
+          </option>
+        ))}
       </select>
       <select
         data-testid="comparison-filter"
