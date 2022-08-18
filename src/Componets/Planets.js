@@ -9,7 +9,7 @@ function Planet() {
     setfilterByNumericValues,
   } = useContext(Context);
   const [filterByNumeric, setfilterByNumeric] = useState({
-    colum: 'population',
+    column: 'population',
     comparison: 'maior que',
     value: 0,
   });
@@ -21,36 +21,38 @@ function Planet() {
     'films', 'created', 'edited', 'url',
   ];
 
-  const { colum, comparison, value } = filterByNumeric;
+  const { column, comparison, value } = filterByNumeric;
   return (
     <div>
       <select
         data-testid="column-filter"
-        name="colum"
-        value={ colum }
+        name="column"
+        value={ column }
         onChange={ (e) => setfilterByNumeric({ ...filterByNumeric,
-          collum: e.target.value }) }
+          column: e.target.value }) }
       >
-        <option> population</option>
-        <option> orbital_period</option>
-        <option> diameter</option>
-        <option> rotation_period</option>
-        <option> surface_water</option>
+        <option>population</option>
+        <option>orbital_period</option>
+        <option>diameter</option>
+        <option>rotation_period</option>
+        <option>surface_water</option>
       </select>
       <select
         data-testid="comparison-filter"
         name="comparison"
+        id="comparison"
         value={ comparison }
         onChange={ (e) => setfilterByNumeric({ ...filterByNumeric,
           comparison: e.target.value }) }
       >
-        <option>maior que</option>
-        <option>menor que</option>
-        <option>igual a</option>
+        <option value="maior que">maior que</option>
+        <option value="menor que">menor que</option>
+        <option value="igual a">igual a</option>
       </select>
       <input
         data-testid="value-filter"
         name="value"
+        id="value"
         value={ value }
         onChange={ (e) => setfilterByNumeric({ ...filterByNumeric,
           value: e.target.value }) }

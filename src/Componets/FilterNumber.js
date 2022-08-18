@@ -3,15 +3,16 @@ import Context from '../context/Context';
 
 function FilterNumber() {
   const { filterByNumericValues, planets, filterByName } = useContext(Context);
+
   const filterPlanets = planets
     .filter(({ name }) => name.toLowerCase().includes(filterByName))
-    .filter((planet) => filterByNumericValues.every(({ colum, comparison, value }) => {
+    .filter((planet) => filterByNumericValues.every(({ column, comparison, value }) => {
       if (comparison === 'menor que') {
-        return +planet[colum] < +value;
+        return +planet[column] < +value;
       } if (comparison === 'maior que') {
-        return +planet[colum] > +value;
+        return +planet[column] > +value;
       }
-      return +planet[colum] === +value;
+      return +planet[column] === +value;
     }));
 
   return (
