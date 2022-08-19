@@ -3,7 +3,7 @@ import Context from '../context/Context';
 
 function FilterNumber() {
   const { filterByNumericValues, planets, filterByName } = useContext(Context);
-
+  // https://www.youtube.com/watch?v=5Tq4-UgPTDs&ab_channel=ViniciusDacal linha 8 foi feita com base nesse video
   const filterPlanets = planets
     .filter(({ name }) => name.toLowerCase().includes(filterByName))
     .filter((planet) => filterByNumericValues.every(({ column, comparison, value }) => {

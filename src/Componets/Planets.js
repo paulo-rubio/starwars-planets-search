@@ -20,11 +20,11 @@ function Planet() {
     'rotation_period',
     'surface_water',
   ];
-
+  // https://melvingeorge.me/blog/remove-elements-contained-in-another-array-javascript
   const collumFilterForDiferenc = Columnfilter.filter(
     (column) => !filterByNumericValues.some((e) => column === e.column),
   );
-
+    // componnetDidMount
   useEffect(() => {
     setfilterByNumeric((p) => ({ ...p, column: collumFilterForDiferenc[0] }));
   }, [filterByNumericValues]);
