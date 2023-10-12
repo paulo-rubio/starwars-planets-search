@@ -12,6 +12,7 @@ function Provider({ children }) {
   useEffect(() => {
     const getPlanetsList = async () => {
       const { results } = await fetch(endPoint).then((resposta) => resposta.json());
+
       setPlanets(results);
     };
     getPlanetsList();

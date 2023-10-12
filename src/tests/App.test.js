@@ -74,17 +74,14 @@ test('test in maior que', async() => {
   const comparison = screen.getByTestId("comparison-filter");
   const value = screen.getByTestId("value-filter");
   const button = screen.getByTestId("button-filter");
-
-
+  
   userEvent.selectOptions(column, 'orbital_period')
   userEvent.selectOptions(comparison, 'maior que')
   userEvent.type(value, '100000000000')
   userEvent.click(button)
 
-
-
-
-  const  linhasDasTabelas = screen.getAllByRole('row');
+  const  linhasDasTabelas = screen.getAllByRole('row')
   expect(linhasDasTabelas.length).toBe(1)
+
 })
 })
